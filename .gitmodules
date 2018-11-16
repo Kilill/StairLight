@@ -1,0 +1,3 @@
+[submodule "lib/PCA9685-Arduino"]
+	path = lib/PCA9685-Arduino
+	url = git@github.com:NachtRaveVL/PCA9685-Arduino.git
