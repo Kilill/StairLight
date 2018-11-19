@@ -1,4 +1,12 @@
-const int PROGMEM table[]={
+#ifdef __CDT_PARSER__
+// make eclipse cdt parser shut up about PROGMEM beeing unresolved
+const int ledvals[]
+#else
+const int PROGMEM ledvals[]
+#endif
+={
+
+
    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,
    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,
    0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   2,
@@ -76,5 +84,5 @@ const int PROGMEM table[]={
 1970,1985,2001,2016,2032,2048,2063,2079,2095,2112,2128,2144,
 2161,2178,2194,2211,2229,2246,2263,2281,2298,2316,2334,2352,
 2370,2389,2407,2426,2444,2463,2482,2502,2521,2540,2560,2580,
-2600,2620,2640,2661};
-#define MAXINTENS 2661
+2600,2620,2640,2661,2700,2800,2900,3100,3400,3700,3900,4096};
+#define MAXINTENS 4096
