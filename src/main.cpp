@@ -39,8 +39,8 @@ PCA9685 pwmController;   // Library using default Wire and default linear phase 
 
 const int NumLeds=12;	// Number of led's in the chain
 const int LastLed=NumLeds-1;
-const int UPPIN=2;		// pin for going up, ie it points downwards
-const int DWNPIN=3;		// pin for going down , ie it points upwards
+const int UPPIN=3;		// pin for going up, ie it points downwards
+const int DWNPIN=4;		// pin for going down , ie it points upwards
 
 const int TabCnt = (sizeof(LedVals) / sizeof(LedVals[0]));
 const int LastTab = TabCnt-1;				// last member of intensity tableo

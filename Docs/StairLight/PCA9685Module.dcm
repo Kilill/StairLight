@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP PCA9685Module
+D Power Management IC Development Tools PWM/Servo Driver PCA9685 12-bit
+F https://www.arrow.com/en/products/815/adafruit-industries
+$ENDCMP
+#
+#End Doc Library
