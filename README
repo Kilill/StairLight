@@ -1,0 +1,19 @@
+Walking stairlight
+
+controller for LED stair lights with motion detection
+
+The system uses two PIR detectors to sense when someone is aproaching the stairs
+and will light the leds uppwards or downwards in sequence depending on wheater the 
+aproas is from the bottom or the top of the stairs.
+After ca 30 sec where not movment is detected the LED's will be turned of in the same
+direction.
+
+If movment is detected during the turn off sequence the LED's will we realigthted in the opposite direction.
+
+The ramp up and down values are taken from an internal handcrafted semi logarithmic table.
+
+The hardware is based on an arduino trinket pro and the a PCA9685 module for doing the PWM controll to the leds. currently there is only provision for 1 PCA9685, which limits the number of leds to 16 but the modules can be daisychained if more is needed.
+
+2 ULN2003 are used to drive the leds on the sink side.
+
+Kim Lilliestierna (kill@itr.no)
