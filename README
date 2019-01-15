@@ -16,4 +16,8 @@ The hardware is based on an arduino trinket pro and the a PCA9685 module for doi
 
 2 ULN2003 are used to drive the leds on the sink side.
 
+The "Making of..." video can be seen here https://youtu.be/RJhZaBpE6fs , this version only have 12 leds
+aquired from wish: 
+https://www.wish.com/search/outdor%20led%20light/product/5b14fe41cee36e30e63e873b
+
 Kim Lilliestierna (kill@itr.no)
