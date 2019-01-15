@@ -21,3 +21,9 @@ The "Making of..." video can be seen here https://youtu.be/RJhZaBpE6fs , this ve
 aquired from wish: https://www.wish.com/search/outdor%20led%20light/product/5b14fe41cee36e30e63e873b
 
 Source currently resides on: https://github.com/Kilill/StairLight
+
+platformoio is used for the compilation enviroment: https://platformio.org/
+
+schematics for the current implementation is located in the Docs/StairLight directory a pdf of the chema is in Docs/StarLightSchema.pdf
+
+
