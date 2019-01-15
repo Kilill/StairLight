@@ -39,8 +39,8 @@ PCA9685 pwmController;   // Library using default Wire and default linear phase 
 
 const int NumLeds=12;	// Number of led's in the chain
 const int LastLed=NumLeds-1;
-const int UPPIN=3;		// pin for going up, ie it points downwards
-const int DWNPIN=4;		// pin for going down , ie it points upwards
+const int UPPIN=3;		// sensor pin for going up, ie it points downwards
+const int DWNPIN=4;		// sensor pin for going down , ie it points upwards
 
 const int TabCnt = (sizeof(LedVals) / sizeof(LedVals[0]));
 const int LastTab = TabCnt-1;				// last member of intensity tableo
@@ -54,23 +54,23 @@ const int ShortWait = 100;
 int State;				/// In which state is the led chain
 
 enum LightState {
-	Off,				// All leds off
-	OnDown,				// Someone going down detected, lights are on
-	OnUp,				// Someone going up detected, lights are on
+	Off,						// All leds off
+	OnDown,					// Someone going down detected, lights are on
+	OnUp,						// Someone going up detected, lights are on
 	TurningOffUp,		// Turning lights of uppwards
-	TurningOffDown		// Turning lights off downwards
+	TurningOffDown	// Turning lights off downwards
 };
 
-/// used in rampUpDwn to set direction in the list of leds
+/// Used in rampUpDwn to set direction in the list of leds
 enum LedDir {
 	Down=false, 		// Stepping downwards in the list
-	Up=true				// Stepping upwards in the list
+	Up=true					// Stepping upwards in the list
 };
 
 /// used in rampUpDwn to set change intensity direction
 enum LedChange  {
 	Decrease=false, 	// Decrease intensity
-	Increase=true		// Increase intensity
+	Increase=true			// Increase intensity
 };
 
 enum RampStat {Reset, Continue,Motion,Done};
@@ -90,7 +90,7 @@ int ramp (int dir, int incDec,int reset){
 		if(incDec==Increase) {
 			curStep=0;
 			curLed=(dir==Up)?0:LastLed;
-		} else { // Decrease
+		} else { 					// Decrease
 			curStep=MaxIntens;
 			curLed=(dir==Up)?0:LastLed;
 		}
@@ -103,9 +103,10 @@ int ramp (int dir, int incDec,int reset){
 		// We might enter here from an aborted Decrease
 		// So curStep and CurLed might be somewhere mid step
 		// The ramp up is never interrupted so run it to the end
-		if(curStep<MidIntens) { // check in which part we should start
-			for(;curLed <NumLeds;curLed++){
-				for(;curStep<MidIntens;curStep++){
+
+		if(curStep<MidIntens) { 	// check in which part we should start
+			for(;curLed <NumLeds;curLed++){ 
+				for(;curStep<MidIntens;curStep++){ // ramp up the led to mid intensity
 					pwmController.setChannelPWM(curLed,pgm_read_word_near(LedVals+curStep));
 				}
 				curStep=0;
@@ -114,7 +115,7 @@ int ramp (int dir, int incDec,int reset){
 			curLed=0;
 			curStep=MidIntens;
 		}
-		for (;curStep<=MaxIntens;curStep++) {
+		for (;curStep<=MaxIntens;curStep++) { // Ramp up all leds to full
 			for(;curLed <NumLeds;curLed++){
 				pwmController.setChannelPWM(curLed,pgm_read_word_near(LedVals+curStep));
 			}
@@ -276,13 +277,15 @@ void loop()
 	case Off:
 		DBGP("State: Off\n");
 		if(sensUp.update()||sensDown.update()) {
+
 			if (sensUp.rose()) { // Someone going up
 				DBG("Up motion detected:\n");
-				ramp(Up,Increase,Reset);
-				ramp(Up,Increase,Continue);
+				ramp(Up,Increase,Reset); // reset ramp logic
+				ramp(Up,Increase,Continue); // actually do the ramping
 				sensDown.interval(LongWait); // wait longer for ramping down again
 				sensUp.interval(LongWait);
 				State=OnUp;
+
 			} else if(sensDown.rose()) { // Someone going down
 				DBG("Down motion detected:\n");
 				ramp(Down,Increase,Reset);
@@ -308,7 +311,7 @@ void loop()
 
 			if (!sensUp.read() && !sensDown.read()) { // both sensors are off , no one in stairs
 				DBG("No up motion detected:\n");
-					// start turning of leds uppwards
+				// start turning of leds uppwards
 				ramp(Up,Decrease,Reset);
 				sensUp.interval(ShortWait); // shorter debounce for movement detection
 				sensDown.interval(ShortWait); // shorter debounce for movement detection
@@ -318,6 +321,7 @@ void loop()
 		break;
 
 	//  --- Turning off after going up ---
+
 	case TurningOffUp:
 		DBGP("State: TurningOffUp\n");
 		// Motion detected ?
@@ -331,6 +335,7 @@ void loop()
 		break;
 
 	// --- Turn on going down ---
+
 	case OnDown:
 		DBGP("State: OnDwn\n");
 		if(sensUp.update() || sensDown.update()) { // Something changed
@@ -354,7 +359,8 @@ void loop()
 		break;
 
 
-	 // --- Turning off after going down ---
+	// --- Turning off after going down ---
+	 
 	case TurningOffDown:
 		DBGP("State: TurningOffDwn\n");
 		// Motion detected ?
@@ -368,6 +374,7 @@ void loop()
 		break;
 
 	// ==== should not happen, invalid state detected, do nothin / reset the hole thing ? ===
+
 	default:
 		DBG("Alert!!: Uknown state detected\n");
 		State=Off;
