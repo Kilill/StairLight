@@ -3,21 +3,21 @@ Walking stairlight
 controller for LED stair lights with motion detection
 
 The system uses two PIR detectors to sense when someone is aproaching the stairs
-and will light the leds uppwards or downwards in sequence depending on wheater the 
-aproas is from the bottom or the top of the stairs.
-After ca 30 sec where not movment is detected the LED's will be turned of in the same
+and will light the leds uppwards or downwards in sequence depending on the aproach is 
+from the bottom or the top of the stairs.
+
+After ca 30 sec where no movment is detected the LED's will be turned of in the same
 direction.
 
 If movment is detected during the turn off sequence the LED's will we realigthted in the opposite direction.
 
 The ramp up and down values are taken from an internal handcrafted semi logarithmic table.
 
-The hardware is based on an arduino trinket pro and the a PCA9685 module for doing the PWM controll to the leds. currently there is only provision for 1 PCA9685, which limits the number of leds to 16 but the modules can be daisychained if more is needed.
+The hardware is based on an arduino trinket pro and the a PCA9685 module for doing the PWM controll of the leds. Currently there is only provision for 1 PCA9685, which limits the number of leds to 16 but the modules can be daisychained if more is needed.
 
 2 ULN2003 are used to drive the leds on the sink side.
 
 The "Making of..." video can be seen here https://youtu.be/RJhZaBpE6fs , this version only have 12 leds
-aquired from wish: 
-https://www.wish.com/search/outdor%20led%20light/product/5b14fe41cee36e30e63e873b
+aquired from wish: https://www.wish.com/search/outdor%20led%20light/product/5b14fe41cee36e30e63e873b
 
-Kim Lilliestierna (kill@itr.no)
+Source currently resides on: https://github.com/Kilill/StairLight
